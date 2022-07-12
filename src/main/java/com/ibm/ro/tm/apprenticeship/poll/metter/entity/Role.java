@@ -101,6 +101,7 @@ public class Role implements Comparable<Role> {
 			result = -1;
 		}
 		return result;
+		//hope not conflict
 	}
 
 }
