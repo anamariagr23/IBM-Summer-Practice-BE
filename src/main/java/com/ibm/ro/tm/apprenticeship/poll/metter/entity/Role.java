@@ -87,6 +87,7 @@ public class Role implements Comparable<Role> {
 
 	@Override
 	public int compareTo(Role o) {
+		//demo comment
 		int result = 0;
 		if (o != null) {
 			if (id != null) {
