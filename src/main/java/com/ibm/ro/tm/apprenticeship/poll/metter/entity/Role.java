@@ -58,6 +58,7 @@ public class Role implements Comparable<Role> {
 	 * @return the name
 	 */
 	public String getName() {
+
 		return name;
 	}
 
