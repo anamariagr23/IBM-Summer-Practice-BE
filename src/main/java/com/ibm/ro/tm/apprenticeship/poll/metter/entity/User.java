@@ -3,45 +3,61 @@
  */
 package com.ibm.ro.tm.apprenticeship.poll.metter.entity;
 
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
-import org.hibernate.annotations.SortNatural;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.ManyToOne;
+import org.apache.tomcat.jni.Poll;
 
 /**
  * @author O09860826
  *
  */
+
 @Entity
-public class User implements Comparable<User> {
+public class User  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column
+	@Column(nullable = false)
 	private String name;
+	
+	@Column(nullable = false)
+	private Role role;
+	
+	@ManyToMany
+    @JoinTable(
+    		name="poll_chosed",
+    		joinColumns =@JoinColumn(name="user_id"),
+    		inverseJoinColumns = @JoinColumn(name="poll_id")
+    		)
+    private Set<Poll> pollsChosed = new HashSet<>() ;
 
-	@ManyToMany(mappedBy = "users")
-	@SortNatural
-	@JsonIgnoreProperties("users")
-	private SortedSet<Role> roles = new TreeSet<Role>();
 
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="answer_id", referencedColumnName = "id")
+	private Answer answer;
+	
+	
 	protected User() {
 
 	}
 
-	public User(String name) {
+	public User(String name, Role role) {
+
 		this.name = name;
+		this.role = role;
 	}
 
 	/**
@@ -61,30 +77,49 @@ public class User implements Comparable<User> {
 	/**
 	 * @return the roles
 	 */
-	public SortedSet<Role> getRoles() {
-		return roles;
+	public Role getRoles() {
+		return role;
+	}
+	
+		
+	public Set<Poll> getChosePoll() {
+		return pollsChosed;
 	}
 
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + "(" + this.id + ", " + this.name + ")";
+	//setters
+	
+	public void setName(String newName) {
+		this.name = newName;
+	}
+	
+	public void setRoles(Role newRole) {
+		this.role = newRole;
+	}
+	
+	public void setChosePoll(Set<Poll> chosePoll) {
+		this.pollsChosed = chosePoll;
 	}
 
-	@Override
-	public int compareTo(User o) {
-		int result = 0;
-		if (o != null) {
-			if (id != null) {
-				result = id.compareTo(o.getId());
-			} else if (o.getId() != null) {
-				result = 1;
-			} else {
-				result = 0;
-			}
-		} else {
-			result = -1;
-		}
-		return result;
+
+	public void chosePoll(Poll poll) {
+		// TODO Auto-generated method stub
+		pollsChosed.add(poll);
 	}
+
+	public Answer getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
+	}
+
+	public void votePoll(Answer answer2) {
+		// TODO Auto-generated method stub
+		this.answer = answer2;
+	}
+
+	
+	
 
 }
