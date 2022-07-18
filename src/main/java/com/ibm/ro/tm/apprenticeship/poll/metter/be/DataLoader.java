@@ -9,7 +9,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Role;
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.User;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.RoleRepository;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.UserRepository;

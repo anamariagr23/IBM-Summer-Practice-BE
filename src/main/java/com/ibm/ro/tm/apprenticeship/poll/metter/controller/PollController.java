@@ -13,57 +13,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Answer;
-import com.ibm.ro.tm.apprenticeship.poll.metter.entity.User;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.AnswerRepository;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.PollRepository;
-import com.ibm.ro.tm.apprenticeship.poll.metter.repository.UserRepository;
 
 /**
- * @author O09860826
+ * @author vlads
  *
  */
 @RestController
-@RequestMapping("/users")
-public class UserController {
-
-	@Autowired
-	UserRepository userRepository;
+@RequestMapping("/polls")
+public class PollController {
 	
 	@Autowired
 	PollRepository pollRepository;
 	
 	@Autowired
 	AnswerRepository answerRepository;
-	
-	
 
-	public UserController(UserRepository userRepository) {
-		this.userRepository = userRepository;
+		
+	public PollController(PollRepository pollRepository) {
+		this.pollRepository = pollRepository;
 	}
-
-	@GetMapping("/users")
-	public List<User> getUsers() {
-		return userRepository.findAll();
+	
+	@GetMapping("/polls")
+	public List<com.ibm.ro.tm.apprenticeship.poll.metter.entity.Poll> getPolls() {
+		return pollRepository.findAll();
 	} 
-	/*
-	@GetMapping("/users/{id}")
-	public User findById(Long id) {
-		return repository.findById(id);
-	}
-	*/
 	
-	 	 
-	 @PutMapping("/{userId}/answer/{answerId}")
-	 User votePoll(
-			 @PathVariable Long userId,
+	@PutMapping("/{userId}/answer/{answerId}")
+	 Object votePoll(
+			 @PathVariable Long pollId,
 			 @PathVariable Long answerId
 			 ) {
-		 User user = userRepository.findById(userId).get();
+		 com.ibm.ro.tm.apprenticeship.poll.metter.entity.Poll poll = pollRepository.findById(pollId).get();
 		 Answer answer = answerRepository.findById(answerId).get();
-		 user.votePoll(answer);
-		 return userRepository.save(user);
+		 poll.addAnswer(answer);
+		 return pollRepository.save(poll);
 		 
 	 }
-	 
-
 }
+
