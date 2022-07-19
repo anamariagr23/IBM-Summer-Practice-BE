@@ -3,6 +3,7 @@
  */
 package com.ibm.ro.tm.apprenticeship.poll.metter.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import org.apache.tomcat.jni.Poll;
 
 /**
  * @author O09860826
@@ -24,10 +24,16 @@ import org.apache.tomcat.jni.Poll;
  */
 
 @Entity
-public class User  {
+public class User implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8816369699035300946L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(nullable = false)
 	private Long id;
 
 	@Column(nullable = false)
@@ -37,14 +43,13 @@ public class User  {
 	private Role role;
 	
 	@ManyToMany
-    @JoinTable(
-    		name="poll_chosed",
-    		joinColumns =@JoinColumn(name="user_id"),
-    		inverseJoinColumns = @JoinColumn(name="poll_id")
-    		)
-    private Set<Poll> pollsChosed = new HashSet<>() ;
-
-
+	@JoinTable(
+			name="polls_voted",
+			joinColumns = @JoinColumn(name="user_id"),
+			inverseJoinColumns = @JoinColumn(name="poll_id"))
+	private Set<Poll> pollsVoted = new HashSet<>();
+	
+	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="answer_id", referencedColumnName = "id")
 	private Answer answer;
@@ -81,11 +86,11 @@ public class User  {
 		return role;
 	}
 	
-		
-	public Set<Poll> getChosePoll() {
-		return pollsChosed;
+	public Set<Poll> getPollsVoted() {
+		return pollsVoted;
 	}
-
+			
+	
 	//setters
 	
 	public void setName(String newName) {
@@ -96,16 +101,7 @@ public class User  {
 		this.role = newRole;
 	}
 	
-	public void setChosePoll(Set<Poll> chosePoll) {
-		this.pollsChosed = chosePoll;
-	}
-
-
-	public void chosePoll(Poll poll) {
-		// TODO Auto-generated method stub
-		pollsChosed.add(poll);
-	}
-
+	
 	public Answer getAnswer() {
 		return answer;
 	}
@@ -117,6 +113,16 @@ public class User  {
 	public void votePoll(Answer answer2) {
 		// TODO Auto-generated method stub
 		this.answer = answer2;
+	}
+
+	
+	public void setPollsVoted(Set<Poll> pollsVoted) {
+		this.pollsVoted = pollsVoted;
+	}
+
+	public void votePoll(Poll poll) {
+		// TODO Auto-generated method stub
+		pollsVoted.add(poll);
 	}
 
 	
