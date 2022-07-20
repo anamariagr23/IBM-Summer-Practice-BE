@@ -1,5 +1,6 @@
 package com.ibm.ro.tm.apprenticeship.poll.metter.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,13 +8,19 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
-public class Answer {
+public class Answer implements Serializable {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5720254597469710394L;
+
+
+	@Id
     private Long id;
 
     
-    @OneToMany(mappedBy="answer")
+    @OneToMany(mappedBy="answer") 
     private Set<User> users = new HashSet<>();
     
     

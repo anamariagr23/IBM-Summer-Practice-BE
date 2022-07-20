@@ -2,15 +2,22 @@ package com.ibm.ro.tm.apprenticeship.poll.metter.entity;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Poll {
+public class Poll implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1195877116290672016L;
+
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(nullable = false, updatable = false)
     private Long id;
 
     @Column(nullable = false)
@@ -23,8 +30,8 @@ public class Poll {
     @Column(nullable = false)
     private Timestamp closingDate;
     
-    
-   
+    @ManyToMany(mappedBy = "pollsVoted")    
+    Set<User> users = new HashSet<>();
     
     @OneToMany(mappedBy = "poll")
     private Set<Answer> answers = new HashSet<>();
@@ -58,8 +65,9 @@ public class Poll {
 		return answers;
 	}
     
-    
-
+    public Set<User> getUsers(){
+    	return users;
+    }
        
     //setters
     
@@ -76,7 +84,9 @@ public class Poll {
     	this.closingDate = newClosingDate;
     }
     
-    
+    public void setUsers(Set<User> users) {
+    	this.users = users;
+    }
 
 
     //delete Poll method
