@@ -85,4 +85,9 @@ public class Answer implements Serializable {
     public void setPoll(Poll newPoll) {
     	this.poll = newPoll;
     }
+
+	public void assignAnswersToPoll(Poll poll2) {
+		// TODO Auto-generated method stub
+		this.poll = poll2;
+	}
 }

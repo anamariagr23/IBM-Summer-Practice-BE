@@ -33,7 +33,6 @@ public class UserService {
 	AnswerRepository answerRepository;
 	
 	
-	
 	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}

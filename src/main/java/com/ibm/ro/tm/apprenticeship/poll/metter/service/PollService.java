@@ -2,9 +2,7 @@ package com.ibm.ro.tm.apprenticeship.poll.metter.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Poll;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.PollRepository;
 
@@ -13,7 +11,7 @@ public class PollService {
 
 	private final PollRepository pollRepository;
 	
-	@Autowired
+	
 	public PollService(PollRepository pollRepository) {
 		this.pollRepository = pollRepository;
 	}
@@ -26,23 +24,27 @@ public class PollService {
 	}
 	
 	public Poll addPoll(Poll poll) {
-		return pollRepository.save(poll);
+		return getPollRepository().save(poll);
 	}
 	
 	public List<Poll> findAllPolls(){
-		return pollRepository.findAll();
+		return getPollRepository().findAll();
 	}
 	
 	public Poll updatePoll(Poll poll) {
-		return pollRepository.save(poll);
+		return getPollRepository().save(poll);
 	}
 	
 	public Poll findById(Long id) {
-		return pollRepository.getById(id);
+		return getPollRepository().getById(id);
+	}
+	
+	public List<Poll> findByTopic(String topic) {
+		return getPollRepository().findByName(topic);
 	}
 	
 	public void deletePoll(Long id) {
-		pollRepository.deleteById(id);
+		getPollRepository().deleteById(id);
 	}
 	
 		
