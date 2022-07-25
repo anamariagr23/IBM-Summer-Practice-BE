@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Answer;
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Poll;
+import com.ibm.ro.tm.apprenticeship.poll.metter.exception.AnswerNotFoundException;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.AnswerRepository;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.PollRepository;
 
@@ -50,7 +51,7 @@ public class AnswerService {
 	}
 	
 	public Answer findById(Long id) {
-		return answerRepository.getById(id);
+		return answerRepository.findById(id).orElseThrow(()-> new AnswerNotFoundException("Answer not found"));
 	}
 	
 	public Answer updateAnswer(Answer answer) {

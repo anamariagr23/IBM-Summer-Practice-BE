@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Answer;
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Poll;
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.User;
+import com.ibm.ro.tm.apprenticeship.poll.metter.exception.UserNotFoundException;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.AnswerRepository;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.PollRepository;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.UserRepository;
@@ -83,6 +84,6 @@ public class UserService {
 	}
 	
 	public User findById(Long id) {
-		return userRepository.findById(id).orElseThrow();
+		return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("user not found"));
 	}
 }
