@@ -5,20 +5,17 @@ package com.ibm.ro.tm.apprenticeship.poll.metter.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Answer;
-import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Poll;
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.User;
-import com.ibm.ro.tm.apprenticeship.poll.metter.repository.AnswerRepository;
-import com.ibm.ro.tm.apprenticeship.poll.metter.repository.PollRepository;
-import com.ibm.ro.tm.apprenticeship.poll.metter.repository.UserRepository;
+import com.ibm.ro.tm.apprenticeship.poll.metter.service.UserService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
@@ -30,25 +27,34 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 @RequestMapping("/users")
 public class UserController {
 
-	@Autowired
-	UserRepository userRepository;
-	
-	@Autowired
-	PollRepository pollRepository;
-	
-	@Autowired
-	AnswerRepository answerRepository;
+	private UserService userService;
 	
 	
-
-	public UserController(UserRepository userRepository) {
-		this.userRepository = userRepository;
+	public UserController(UserService userService) {
+		this.userService = userService;
 	}
+	
+	
+	/**
+	 * @return the userService
+	 */
+	public UserService getUserService() {
+		return userService;
+	}
+	
 
-	@GetMapping("/users")
-	public List<User> getUsers() {
-		return userRepository.findAll();
-	} 
+	/**
+	 * @param userService the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+	
+	@GetMapping("/all")
+	public ResponseEntity<List<User>> getAllUsers(){
+		List<User> users = userService.findAllUsers();
+		return new ResponseEntity<>(users, HttpStatus.OK);
+	}
 	/*
 	@GetMapping("/users/{id}")
 	public User findById(Long id) {
@@ -56,33 +62,29 @@ public class UserController {
 	}
 	*/
 	
-	@PostMapping
-	User createUser(@RequestBody User user) {
-		return userRepository.save(user);
+	@GetMapping("/find/{id}")
+	public ResponseEntity<User> getUserById(@PathVariable("id") Long id){
+		User user = userService.findById(id);
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
-	@PutMapping("/{userId}/polls/{userId}")
-	User userVotesAtPoll(
-			@PathVariable Long userId,
-			@PathVariable Long pollId) {
-		User user = userRepository.getById(userId);
-		Poll poll = pollRepository.getById(pollId);
-		user.votePoll(poll);
-		return userRepository.save(user);
+	@PostMapping("/add")
+	public ResponseEntity<User> addUser(@RequestBody User user){
+		User newUser = userService.addUser(user);
+		return new ResponseEntity<>(newUser, HttpStatus.CREATED);
 	}
 	
-	 	 
-	 @PutMapping("/{userId}/answer/{answerId}")
-	 User votePoll(
-			 @PathVariable Long userId,
-			 @PathVariable Long answerId
-			 ) {
-		 User user = userRepository.findById(userId).get();
-		 Answer answer = answerRepository.findById(answerId).get();
-		 user.votePoll(answer);
-		 return userRepository.save(user);
-		 
-	 }
+	@PostMapping("/update")
+	public ResponseEntity<User> updateUser(@RequestBody User user){
+		User updateUser = userService.updateUser(user);
+		return new ResponseEntity<>(updateUser, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<User> deleteUser(@PathVariable("id") Long id){
+		userService.deleteUser(id);
+		return new ResponseEntity<>( HttpStatus.OK);
+	}
+	
 	 
-
 }

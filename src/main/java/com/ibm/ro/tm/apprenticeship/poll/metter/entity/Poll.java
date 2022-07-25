@@ -87,13 +87,7 @@ public class Poll implements Serializable {
     public void setUsers(Set<User> users) {
     	this.users = users;
     }
-
-
-    //delete Poll method
-    public int deletePoll(int deleteId){
-        return 1;
-    }
-
+    
 	public void addAnswer(Answer answer) {
 		// TODO Auto-generated method stub
 		answers.add(answer);
