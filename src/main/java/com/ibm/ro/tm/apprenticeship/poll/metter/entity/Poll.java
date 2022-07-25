@@ -87,9 +87,5 @@ public class Poll implements Serializable {
     public void setUsers(Set<User> users) {
     	this.users = users;
     }
-    
-	public void addAnswer(Answer answer) {
-		// TODO Auto-generated method stub
-		answers.add(answer);
-	}
+    	
 }

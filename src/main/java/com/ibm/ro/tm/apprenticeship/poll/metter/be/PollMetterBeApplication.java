@@ -17,6 +17,6 @@ import com.ibm.ro.tm.apprenticeship.poll.metter.controller.UserController;
 public class PollMetterBeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PollMetterBeApplication.class, args);
+		SpringApplication.run(DataLoader.class, args);
 	}
 }
