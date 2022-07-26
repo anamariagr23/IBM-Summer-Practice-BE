@@ -31,6 +31,7 @@ public class AnswerService {
 	@Autowired
 	AnswerRepository answerRepository2;
 	
+	
 	public AnswerService(AnswerRepository answerRepository) {
 		this.answerRepository = answerRepository;
 	}
