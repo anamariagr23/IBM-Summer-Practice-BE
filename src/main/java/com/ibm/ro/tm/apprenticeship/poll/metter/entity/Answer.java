@@ -2,9 +2,6 @@ package com.ibm.ro.tm.apprenticeship.poll.metter.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.*;
 
 @Entity
@@ -20,8 +17,9 @@ public class Answer implements Serializable {
     private Long id;
 
     
-    @OneToMany(mappedBy="answer") 
-    private Set<User> users = new HashSet<>();
+	@ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id", referencedColumnName = "id")
+	private User user;
     
     
     @ManyToOne(cascade=CascadeType.ALL)
@@ -60,8 +58,8 @@ public class Answer implements Serializable {
         return vottingDetails;
     }
     
-    public Set<User> getUsers() {
-		return users;
+    public User getUser() {
+		return user;
 	}
     
     public Poll getPoll() {

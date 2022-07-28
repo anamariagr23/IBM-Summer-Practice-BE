@@ -4,8 +4,6 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 public class Poll implements Serializable {
@@ -30,12 +28,7 @@ public class Poll implements Serializable {
     @Column(nullable = false)
     private Timestamp closingDate;
     
-    @ManyToMany(mappedBy = "pollsVoted")    
-    Set<User> users = new HashSet<>();
-    
-    @OneToMany(mappedBy = "poll")
-    private Set<Answer> answers = new HashSet<>();
-
+   
     protected Poll(){}
 
     public Poll(String topic, Timestamp closingDate){
@@ -60,15 +53,8 @@ public class Poll implements Serializable {
     public Timestamp getClosingDate(){
         return closingDate;
     }
-    
-    public Set<Answer> getAnswers() {
-		return answers;
-	}
-    
-    public Set<User> getUsers(){
-    	return users;
-    }
-       
+         
+          
     //setters
     
        
@@ -84,8 +70,5 @@ public class Poll implements Serializable {
     	this.closingDate = newClosingDate;
     }
     
-    public void setUsers(Set<User> users) {
-    	this.users = users;
-    }
-    	
+       	
 }

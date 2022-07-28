@@ -42,18 +42,7 @@ public class User implements Serializable {
 	@Column(nullable = false)
 	private Role role;
 	
-	@ManyToMany
-	@JoinTable(
-			name="polls_voted",
-			joinColumns = @JoinColumn(name="user_id"),
-			inverseJoinColumns = @JoinColumn(name="poll_id"))
-	private Set<Poll> pollsVoted = new HashSet<>();
-	
-	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="answer_id", referencedColumnName = "id")
-	private Answer answer;
-	
+		
 	
 	protected User() {
 
@@ -86,10 +75,7 @@ public class User implements Serializable {
 		return role;
 	}
 	
-	public Set<Poll> getPollsVoted() {
-		return pollsVoted;
-	}
-			
+		
 	
 	//setters
 	
@@ -101,31 +87,6 @@ public class User implements Serializable {
 		this.role = newRole;
 	}
 	
-	
-	public Answer getAnswer() {
-		return answer;
-	}
-
-	public void setAnswer(Answer answer) {
-		this.answer = answer;
-	}
-
-	public void votePoll(Answer answer2) {
-		// TODO Auto-generated method stub
-		this.answer = answer2;
-	}
-
-	
-	public void setPollsVoted(Set<Poll> pollsVoted) {
-		this.pollsVoted = pollsVoted;
-	}
-
-	public void votePoll(Poll poll) {
-		// TODO Auto-generated method stub
-		pollsVoted.add(poll);
-	}
-
-	
-	
+		
 
 }
