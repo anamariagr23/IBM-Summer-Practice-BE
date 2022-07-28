@@ -15,9 +15,9 @@ import com.ibm.ro.tm.apprenticeship.poll.metter.entity.User;
  *
  */
 public interface PollRepository extends JpaRepository<Poll, Long>{
-
-	User save(org.apache.tomcat.jni.Poll poll);
-
-	List<Poll> findByName(String name);
+//
+//	User save(org.apache.tomcat.jni.Poll poll);
+////
+//	List<Poll> findByName(String name);
 
 }
