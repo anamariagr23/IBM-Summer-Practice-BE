@@ -5,6 +5,7 @@ package com.ibm.ro.tm.apprenticeship.poll.metter.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Answer;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.AnswerRepository;
+import com.ibm.ro.tm.apprenticeship.poll.metter.repository.PollRepository;
+import com.ibm.ro.tm.apprenticeship.poll.metter.repository.UserRepository;
 import com.ibm.ro.tm.apprenticeship.poll.metter.service.AnswerService;
 
 /**
@@ -29,6 +32,16 @@ import com.ibm.ro.tm.apprenticeship.poll.metter.service.AnswerService;
 public class AnswerController {
 
 	private AnswerService answerService;
+	
+	@Autowired
+	PollRepository pollRepository;
+	
+	@Autowired
+	AnswerRepository answerRepository;
+	
+	@Autowired
+	UserRepository userRepository;
+	
 	
 	public AnswerController(AnswerService answerService) {
 		this.answerService = answerService;
@@ -57,6 +70,21 @@ public class AnswerController {
 		Answer updateAnswer = answerService.update(answer);
 		return new ResponseEntity<>(updateAnswer, HttpStatus.OK);
 	}
+	
+	@GetMapping("/{pollId}/answersByPoll")
+	public ResponseEntity <List<Answer>> getAnswersByPollId(@PathVariable Long pollId){
+		List<Answer> answers = answerService.findAnswersByPoll(pollId);
+		return new ResponseEntity<>(answers, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{userId}/answersByUser")
+	public ResponseEntity <List<Answer>> getAnswersByUserId(@PathVariable Long userId){
+		List<Answer> answers = answerService.findAnswersByUser(userId);
+		return new ResponseEntity<>(answers, HttpStatus.OK);
+	}
+	
+	
+	
 //	private final AnswerService answerService;
 //
 

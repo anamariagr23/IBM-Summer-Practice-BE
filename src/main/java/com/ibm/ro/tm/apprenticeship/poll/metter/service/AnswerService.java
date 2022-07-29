@@ -5,15 +5,14 @@ package com.ibm.ro.tm.apprenticeship.poll.metter.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Answer;
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Poll;
-import com.ibm.ro.tm.apprenticeship.poll.metter.exception.AnswerNotFoundException;
+import com.ibm.ro.tm.apprenticeship.poll.metter.entity.User;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.AnswerRepository;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.PollRepository;
+import com.ibm.ro.tm.apprenticeship.poll.metter.repository.UserRepository;
 
 /**
  * @author vlads
@@ -23,10 +22,13 @@ import com.ibm.ro.tm.apprenticeship.poll.metter.repository.PollRepository;
 public class AnswerService {
 
 	private final AnswerRepository answerRepository;
-////	
-//	@Autowired
-//	PollRepository pollRepository;
-//	
+	
+	@Autowired
+	PollRepository pollRepository;
+	
+	@Autowired
+	UserRepository userRepository;
+	
 	
 	public AnswerService(AnswerRepository answerRepository) {
 		this.answerRepository = answerRepository;
@@ -58,6 +60,23 @@ public class AnswerService {
 	public void delete(Long id) {
 		answerRepository.deleteById(id);
 	}
+	
+
+	 public List<Answer> findAnswersByPoll (Long pollId){
+		 Poll poll = pollRepository.findPollById(pollId).get();
+		 List<Answer> answers = answerRepository.getAnswersByPoll(poll);
+		 return answers;		 
+	 }	
+//	
+
+	public List<Answer> findAnswersByUser(Long userId) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findById(userId).get();
+		List<Answer> answers = answerRepository.getAnswersByUser(user);
+		return answers;
+		
+	}
+	
 //	/*
 //	@PutMapping("/{answerId}/users/{pollId}")
 //	 Object votePoll(
