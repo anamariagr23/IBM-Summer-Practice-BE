@@ -3,6 +3,7 @@
  */
 package com.ibm.ro.tm.apprenticeship.poll.metter.controller;
 
+import java.rmi.ServerException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +60,12 @@ public class UserController {
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<User> addUser(@RequestBody User user){
+	public ResponseEntity<User> addUser(@RequestBody User user) throws ServerException{
 		User newUser = userService.add(user);
+		if(newUser == null) {
+			throw new ServerException(null);
+		}
+			
 		return new ResponseEntity<>(newUser, HttpStatus.CREATED);
 	}
 //	private UserService userService;

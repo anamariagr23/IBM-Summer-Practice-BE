@@ -45,10 +45,10 @@ public class PollService {
 	public Poll updatePoll(Poll poll) {
 		return pollRepository.save(poll);
 	}
-//	
-//	public Poll findById(Long id) {
-//		return pollRepository.findById(id).orElseThrow(() -> new PollNotFoundException("poll not found"));
-//	}
+	
+	public Poll findById(Long id) {
+		return pollRepository.findById(id).orElseThrow();
+	}
 //	
 ////	public List<Poll> findByTopic(String topic) {
 ////		return pollRepository.findByName(topic);
