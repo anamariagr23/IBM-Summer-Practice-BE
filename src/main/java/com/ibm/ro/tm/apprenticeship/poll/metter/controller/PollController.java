@@ -70,6 +70,12 @@ public class PollController {
 		pollService.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+		@GetMapping("/find/{topic}")
+	public ResponseEntity<List<Poll>> getPollByTopic(@PathVariable("topic") String topic){
+		List<Poll> polls = pollService.findByTopic(topic);
+		return new ResponseEntity<>(polls, HttpStatus.OK);
+	}
 
 //	
 //	/**
