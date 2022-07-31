@@ -1,7 +1,6 @@
 package com.ibm.ro.tm.apprenticeship.poll.metter.service;
 
 import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Answer;
@@ -49,11 +48,11 @@ public class PollService {
 	public Poll findById(Long id) {
 		return pollRepository.findById(id).orElseThrow();
 	}
-//	
-////	public List<Poll> findByTopic(String topic) {
-////		return pollRepository.findByName(topic);
-////	}
-//	
+	
+	public List<Poll> findByTopic(String topic) {
+		return pollRepository.findByTopic(topic);
+	}
+	
 	public void delete(Long id) {
 		pollRepository.deleteById(id);
 	}
