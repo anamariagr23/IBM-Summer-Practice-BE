@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Answer;
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Poll;
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.User;
+import com.ibm.ro.tm.apprenticeship.poll.metter.exception.PollNotFoundException;
+import com.ibm.ro.tm.apprenticeship.poll.metter.exception.UserNotFoundException;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.AnswerRepository;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.PollRepository;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.UserRepository;
@@ -63,7 +65,7 @@ public class AnswerService {
 	
 
 	 public List<Answer> findAnswersByPoll (Long pollId){
-		 Poll poll = pollRepository.findPollById(pollId).get();
+		 Poll poll = pollRepository.findById(pollId).orElseThrow(() -> new PollNotFoundException("poll id not found"+pollId));
 		 List<Answer> answers = answerRepository.getAnswersByPoll(poll);
 		 return answers;		 
 	 }	
@@ -71,7 +73,7 @@ public class AnswerService {
 
 	public List<Answer> findAnswersByUser(Long userId) {
 		// TODO Auto-generated method stub
-		User user = userRepository.findById(userId).get();
+		User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("user id not found"+userId));
 		List<Answer> answers = answerRepository.getAnswersByUser(user);
 		return answers;
 		

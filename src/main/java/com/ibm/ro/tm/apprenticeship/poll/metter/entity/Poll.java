@@ -2,6 +2,8 @@ package com.ibm.ro.tm.apprenticeship.poll.metter.entity;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -22,7 +24,7 @@ public class Poll implements Serializable {
     private String topic;
     
     @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @CreationTimestamp
     private Timestamp startingDate;
     
     @Column(nullable = false)
