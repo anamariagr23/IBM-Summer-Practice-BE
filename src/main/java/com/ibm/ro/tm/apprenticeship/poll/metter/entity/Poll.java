@@ -2,6 +2,7 @@ package com.ibm.ro.tm.apprenticeship.poll.metter.entity;
 
 import javax.persistence.*;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
@@ -24,10 +25,13 @@ public class Poll implements Serializable {
     private String topic;
     
     @Column
-    @CreationTimestamp
+    @ApiModelProperty(value = "description", name = "notificationExpiryDate",
+            dataType = "String", example = "2022-01-16T08:42:37.484Z")
     private Timestamp startingDate;
     
     @Column(nullable = false)
+    @ApiModelProperty(value = "description", name = "notificationExpiryDate",
+            dataType = "String", example = "2022-01-16T08:42:37.484Z")
     private Timestamp closingDate;
     
    
