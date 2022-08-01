@@ -19,7 +19,6 @@ import com.ibm.ro.tm.apprenticeship.poll.metter.service.UserService;
 @EntityScan(basePackages = { "com.ibm.ro.tm.apprenticeship.poll.metter.entity"  })
 @EnableJpaRepositories(basePackages = { "com.ibm.ro.tm.apprenticeship.poll.metter.repository"  })
 
-@EnableAutoConfiguration
 public class PollMetterBeApplication {
 	
 	

@@ -8,5 +8,5 @@ package com.ibm.ro.tm.apprenticeship.poll.metter.entity;
  *
  */
 public enum Role {
-	admin, user, annonimus
+	ADMIN, USER, ANONYMOUS
 };

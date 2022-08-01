@@ -4,11 +4,7 @@
 package com.ibm.ro.tm.apprenticeship.poll.metter.entity;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * @author O09860826
@@ -32,6 +28,7 @@ public class User implements Serializable {
 	private String name;
 	
 	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private Role role;
 	
 		
