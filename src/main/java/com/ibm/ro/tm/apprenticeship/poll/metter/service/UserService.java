@@ -6,14 +6,8 @@ package com.ibm.ro.tm.apprenticeship.poll.metter.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-
-import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Answer;
-import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Poll;
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.User;
 import com.ibm.ro.tm.apprenticeship.poll.metter.exception.UserNotFoundException;
-import com.ibm.ro.tm.apprenticeship.poll.metter.repository.PollRepository;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.UserRepository;
 
 /**
@@ -44,6 +38,10 @@ public class UserService {
 	public User add(User user) {
 	return userRepository.save(user);
     }
+	
+	public User findById(Long id) {
+	return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("user id not found"+id));
+	}
 //
 //	/**
 //	 * @return the userRepository

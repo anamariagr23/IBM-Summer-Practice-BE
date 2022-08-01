@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import javax.persistence.*;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 public class Answer implements Serializable {
 
@@ -27,7 +29,7 @@ public class Answer implements Serializable {
 	private Poll poll;
     
     @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @CreationTimestamp
     private Timestamp vottingDate;
 
     @Column(nullable = false)
