@@ -42,7 +42,7 @@ public class UserController {
 
 
 
-	@GetMapping("/all")
+	@GetMapping("/")
 	public ResponseEntity<List<User>> getAllUsers(){
 		if(userService == null)		{
 			System.out.println("nu avem");

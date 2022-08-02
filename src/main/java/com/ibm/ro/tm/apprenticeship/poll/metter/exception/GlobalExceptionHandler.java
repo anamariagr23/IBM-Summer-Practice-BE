@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	
-	@ExceptionHandler(value=UserNotFoundException.class)
+	@ExceptionHandler(value= {UserNotFoundException.class})
 	public ResponseEntity<Object> handleUserNotFoundException (UserNotFoundException exception, WebRequest request){
 		
 		ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), exception.getMessage());
@@ -28,8 +28,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		
 	}
 	
-	@ExceptionHandler(value=PollNotFoundException.class)
-	public ResponseEntity<Object> handleException (PollNotFoundException exception, WebRequest request){
+	@ExceptionHandler(value= {PollNotFoundException.class})
+	public ResponseEntity<Object> handleException (RuntimeException exception, WebRequest request){
 		
 		ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), exception.getMessage());
 		return new ResponseEntity<Object>(errorDetails, HttpStatus.NOT_FOUND);

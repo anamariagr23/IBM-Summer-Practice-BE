@@ -7,4 +7,6 @@ import com.ibm.ro.tm.apprenticeship.poll.metter.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
+	User getById(Long userId);
+
 }

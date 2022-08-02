@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Answer;
 import com.ibm.ro.tm.apprenticeship.poll.metter.entity.Poll;
+import com.ibm.ro.tm.apprenticeship.poll.metter.exception.PollNotFoundException;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.AnswerRepository;
 import com.ibm.ro.tm.apprenticeship.poll.metter.repository.PollRepository;
 
@@ -21,8 +22,10 @@ public class PollService {
 		this.answerRepository = answerRepository;
 	}
 
-	public List<Answer> findAllAnswers(){
-		return answerRepository.findAll();
+	public List<Answer> findAllAnswers(Long id){
+		 Poll poll = pollRepository.findById(id).orElseThrow(() -> new PollNotFoundException("poll id "+id+" not found"));
+		 List<Answer> answers = answerRepository.getAnswersByPoll(poll);
+		 return answers;		
 	}
 	
 	
@@ -42,11 +45,23 @@ public class PollService {
 	}
 	
 	public Poll updatePoll(Poll poll) {
+		
+		if(pollRepository.findById(poll.getId()).isPresent()) {			
+			Poll existingPoll = pollRepository.findById(poll.getId()).get();
+			existingPoll.setTopic(poll.getTopic());
+			existingPoll.setStartingDate(poll.getStartingDate());
+			existingPoll.setClosingDate(poll.getClosingDate());
+			
+			Poll updatePoll = pollRepository.save(existingPoll);
+			
+			return updatePoll;
+		} else {
 		return pollRepository.save(poll);
+		}
 	}
 	
 	public Poll findById(Long id) {
-		return pollRepository.findById(id).orElseThrow();
+		return pollRepository.findById(id).orElseThrow(() -> new PollNotFoundException("poll id "+id+" is not found "));
 	}
 	
 	public List<Poll> findByTopic(String topic) {
@@ -54,7 +69,12 @@ public class PollService {
 	}
 	
 	public void delete(Long id) {
-		pollRepository.deleteById(id);
+		if(pollRepository.findById(id).isPresent()) {
+			pollRepository.deleteById(id);
+			} else {
+				throw new PollNotFoundException("Poll id "+id+" doesn`t exist!");
+			}
+		
 	}
 //	
 		
