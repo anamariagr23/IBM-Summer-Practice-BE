@@ -41,7 +41,7 @@ public class PollController {
 
 
 
-	@GetMapping("/all")
+	@GetMapping("/")
 	public ResponseEntity<List<Poll>> getAllPolls(){
 		List<Poll> polls = pollService.findAll();
 		return new ResponseEntity<>(polls, HttpStatus.OK);

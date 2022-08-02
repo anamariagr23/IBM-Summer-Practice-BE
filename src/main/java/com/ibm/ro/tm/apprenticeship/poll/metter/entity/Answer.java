@@ -45,6 +45,10 @@ public class Answer implements Serializable {
         this.vottingDetails = vottingDetails;
         this.comment = comment;
     }
+    
+    public Answer(String content){
+    	this.comment = content;
+    }
 
     //getters
     
@@ -84,6 +88,10 @@ public class Answer implements Serializable {
     
     public void setPoll(Poll newPoll) {
     	this.poll = newPoll;
+    }
+    
+    public void setUser(User newUser) {
+    	this.user = newUser;
     }
 
 	public void assignAnswersToPoll(Poll poll2) {

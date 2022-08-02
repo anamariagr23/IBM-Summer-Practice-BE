@@ -2,15 +2,10 @@ package com.ibm.ro.tm.apprenticeship.poll.metter.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 //@Entity(name = "answer")
 public class SimpleAnswer implements Serializable {
@@ -34,7 +29,7 @@ public class SimpleAnswer implements Serializable {
 	private Long pollId;
 
 	@Column
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@CreationTimestamp
 	private Timestamp vottingDate;
 
 	@Column(nullable = false)
