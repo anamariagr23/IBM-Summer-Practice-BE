@@ -87,7 +87,7 @@ public class AnswerService {
 		if(answerRepository.findById(id).isPresent()) {
 		answerRepository.deleteById(id);
 		} else {
-			throw new AnswerNotFoundException("Answer id "+id+" is not found");
+			throw new AnswerNotFoundException("Answer id "+id+" doesn`t exist!");
 		}
 	}
 	

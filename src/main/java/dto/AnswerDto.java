@@ -13,9 +13,9 @@ public class AnswerDto {
 	
 	private Long pollId;
 	
-	String content;
+	private String content;
 	
-	int vottingDetail;
+	private int vottingDetail;
 	
 	public AnswerDto() {
 		
