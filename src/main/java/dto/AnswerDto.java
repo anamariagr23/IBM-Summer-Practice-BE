@@ -8,7 +8,7 @@ package dto;
  *
  */
 public class AnswerDto {
-
+	private Long id;
 	private Long userId;
 	
 	private Long pollId;
@@ -24,12 +24,14 @@ public class AnswerDto {
 	/**
 	 * @return the comment
 	 */
+	public Long getId(){
+		return id;
+	}
 	public String getContent() {
 		return content;
 	}
 
 	/**
-	 * @param comment the comment to set
 	 */
 	public void setContent(String content) {
 		this.content = content;
@@ -58,9 +60,15 @@ public class AnswerDto {
 		return userId;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	/**
 	 * @param userId the userId to set
 	 */
+
+
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}

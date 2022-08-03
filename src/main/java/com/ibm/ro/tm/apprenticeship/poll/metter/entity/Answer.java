@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import javax.persistence.*;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
@@ -15,7 +16,8 @@ public class Answer implements Serializable {
 	private static final long serialVersionUID = -5720254597469710394L;
 
 
-	@Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     
@@ -29,13 +31,14 @@ public class Answer implements Serializable {
 	private Poll poll;
     
     @Column
-    @CreationTimestamp
+    @ApiModelProperty(value = "description", name = "notificationExpiryDate",
+            dataType = "String", example = "2022-01-16T08:42:37.484Z")
     private Timestamp vottingDate;
 
     @Column(nullable = false)
     private int vottingDetails;
     
-    @Column(nullable = false)
+    @Column
     private String comment;
 
 

@@ -47,9 +47,10 @@ public class AnswerService {
 		newAnswer = new Answer(answerDto.getContent());
 		User user = userRepository.findById(answerDto.getUserId()).orElseThrow(() -> new UserNotFoundException("user id not found "+answerDto.getUserId()));
 		 Poll poll = pollRepository.findById(answerDto.getPollId()).orElseThrow(() -> new PollNotFoundException("poll id not found "+answerDto.getPollId()));
-		newAnswer.setUser(user);
+		 newAnswer.setUser(user);
 		newAnswer.setPoll(poll);
-		newAnswer.setVottingDetails(answerDto.getVottingDetail());		
+		newAnswer.setVottingDetails(answerDto.getVottingDetail());
+		answerRepository.save(newAnswer);
 		return newAnswer;
 		
 	}
@@ -65,6 +66,7 @@ public class AnswerService {
 			answerDtoToAdd.setUserId(repositoryAnswer.getUser().getId());
 			answerDtoToAdd.setContent(repositoryAnswer.getComment());
 			answerDtoToAdd.setVottingDetail(repositoryAnswer.getVottingDetails());
+			answerDtoToAdd.setId(repositoryAnswer.getId());
 			answerDtoList.add(answerDtoToAdd);
 
 		}
@@ -82,6 +84,7 @@ public class AnswerService {
 		isAnswerDto.setUserId(isAnswer.getUser().getId());
 		isAnswerDto.setVottingDetail(isAnswer.getVottingDetails());
 		isAnswerDto.setContent(isAnswer.getComment());
+		isAnswerDto.setId(isAnswer.getId());
 		return isAnswerDto;
 	}
 	
@@ -90,17 +93,22 @@ public class AnswerService {
 	public Answer update(AnswerDto answerDto) {
 		
 		if(userRepository.findById(answerDto.getUserId()).isPresent() && pollRepository.findById(answerDto.getPollId()).isPresent()) {
-			Answer updateAnswer = null;
-			updateAnswer = new Answer(answerDto.getContent());
-			User user = userRepository.findById(answerDto.getUserId()).get();
-			Poll poll = pollRepository.findById(answerDto.getPollId()).get();
-			updateAnswer.setUser(user);
-			updateAnswer.setPoll(poll);
-			updateAnswer.setVottingDetails(answerDto.getVottingDetail());
-			return updateAnswer;			
+//			Answer updateAnswer = null;
+//			updateAnswer = new Answer(answerDto.getContent());
+//			User user = userRepository.findById(answerDto.getUserId()).get();
+//			Poll poll = pollRepository.findById(answerDto.getPollId()).get();
+//			updateAnswer.setUser(user);
+//			updateAnswer.setPoll(poll);
+//			updateAnswer.setVottingDetails(answerDto.getVottingDetail());
+//			updateAnswer = answerRepository.save(updateAnswer);
+			Answer dbAnswer = answerRepository.findById(answerDto.getId()).get();
+			dbAnswer.setComment(answerDto.getContent());
+			dbAnswer.setVottingDetails(answerDto.getVottingDetail());
+			answerRepository.save(dbAnswer);
+			return dbAnswer;
 		} else {
 			throw new AnswerNotFoundException("No answer existent");
-		}	
+		}
 
 	}
 	
@@ -130,6 +138,21 @@ public class AnswerService {
 		List<Answer> answers = answerRepository.getAnswersByUser(user);
 		return answers;
 		
+	}
+	public AnswerDto findAnswerByUserIdAndPollId(Long pollId,Long userId){
+		User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("user id not found"+userId));
+		Poll poll = pollRepository.findById(pollId).orElseThrow(() -> new PollNotFoundException("poll id not found"+pollId));
+
+		Answer dbAnswer = answerRepository.findAnswerByUserIdAndPollId(poll,user);
+
+		AnswerDto dtoToReturn = new AnswerDto();
+		dtoToReturn.setContent(dbAnswer.getComment());
+		dtoToReturn.setPollId(dbAnswer.getPoll().getId());
+		dtoToReturn.setVottingDetail(dbAnswer.getVottingDetails());
+		dtoToReturn.setUserId(dbAnswer.getUser().getId());
+		dtoToReturn.setId(dbAnswer.getId());
+
+		return dtoToReturn;
 	}
 	
 }
