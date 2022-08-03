@@ -81,8 +81,8 @@ public class AnswerController {
 	}
 	
 	@GetMapping("/")
-	public ResponseEntity<List<Answer>> getAllAnswers(){
-		List<Answer> answers = answerService.findAllAnswers();
+	public ResponseEntity<List<AnswerDto>> getAllAnswers(){
+		List<AnswerDto> answers = answerService.findAllAnswers();
 		return new ResponseEntity<>(answers, HttpStatus.OK);
 	}
 	
@@ -117,51 +117,9 @@ public class AnswerController {
 	}
 	
 	@GetMapping("/find/{id}")
-	public ResponseEntity<Answer> getAnswerById(@PathVariable("id") Long id){
-		Answer answer = answerService.findById(id);
+	public ResponseEntity<AnswerDto> getAnswerById(@PathVariable("id") Long id){
+		AnswerDto answer = answerService.findById(id);
 		return new ResponseEntity<>(answer, HttpStatus.OK);
 	}
-	
-//	private final AnswerService answerService;
-//
-
-//	
-//	/**
-//	 * @return the answerService
-//	 */
-//	public AnswerService getAnswerService() {
-//		return answerService;
-//	}
-//	
-//	@GetMapping("/all")
-//	public ResponseEntity<List<Answer>> getAllAnswers(){
-//		List<Answer> answers = answerService.findAllAnswers();
-//		return new ResponseEntity<>(answers, HttpStatus.OK);
-//	}
-//	
-//	@GetMapping("/find/{id}")
-//	public ResponseEntity<Answer> getAnswerById(@PathVariable("id") Long id){
-//		Answer answer = answerService.findById(id);
-//		return new ResponseEntity<>(answer, HttpStatus.OK);
-//	}
-//	
-//	@PostMapping("/add")
-//	public ResponseEntity<Answer> addAnswer(@RequestBody Answer answer){
-//		Answer newAnswer = answerService.addAnswer(answer);
-//		return new ResponseEntity<>(newAnswer, HttpStatus.CREATED);
-//	}
-//	
-//	@PutMapping("/update")
-//	public ResponseEntity<Answer> updateAnswer(@RequestBody Answer answer){
-//		Answer updateAnswer = answerService.updateAnswer(answer);
-//		return new ResponseEntity<>(updateAnswer, HttpStatus.OK);
-//	}
-//	
-//	@DeleteMapping("/delete/{id}")
-//	public ResponseEntity<Answer> deleteAnswer(@PathVariable Long id){
-//		answerService.deleteAnswer(id);
-//		return new ResponseEntity<>(HttpStatus.OK);
-//	}
-//	
-	
+		
 }

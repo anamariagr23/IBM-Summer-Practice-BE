@@ -24,4 +24,7 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
 	@Query(value = "select a from Answer a where a.user =:user")
 	public List<Answer> getAnswersByUser(@Param( "user")User user);
+	
+	@Query(value="select a.vottingDetails from Answer a")
+	List<Integer> getAllVotes();
 }

@@ -37,7 +37,13 @@ public class PollService {
 //	}
 //	
 	public Poll add(Poll poll) {
-		return pollRepository.save(poll);
+		if(poll.getStartingDate()!=null && poll.getClosingDate() != null ) {
+		Poll newPoll = null;		
+		newPoll = pollRepository.save(poll);		
+		return newPoll;
+		} else {
+			throw new PollNotFoundException("Invalid data introduced!");
+		}
 	}
 	
 	public List<Poll> findAll(){
@@ -61,13 +67,20 @@ public class PollService {
 	}
 	
 	public Poll findById(Long id) {
-		return pollRepository.findById(id).orElseThrow(() -> new PollNotFoundException("poll id "+id+" is not found "));
+		Poll poll = null;
+		if(pollRepository.findById(id).isPresent()) {
+			poll = pollRepository.getById(id);
+			return poll;
+		} else {
+			throw new PollNotFoundException("Poll id "+id+" doesn`t exist!");
+		}
+				
 	}
 	
-	public List<Poll> findByTopic(String topic) {
-		return pollRepository.findByTopic(topic);
-	}
-	
+//	public List<Poll> findByTopic(String topic) {
+//		return pollRepository.findByTopic(topic);
+//	}
+//	
 	public void delete(Long id) {
 		if(pollRepository.findById(id).isPresent()) {
 			pollRepository.deleteById(id);
