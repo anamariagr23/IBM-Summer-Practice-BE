@@ -3,8 +3,6 @@ package com.ibm.ro.tm.apprenticeship.poll.metter.entity;
 import javax.persistence.*;
 
 import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.annotations.CreationTimestamp;
-
 import java.io.Serializable;
 import java.sql.Timestamp;
 

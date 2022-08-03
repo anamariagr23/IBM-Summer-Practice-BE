@@ -39,13 +39,8 @@ public class AnswerService {
 		this.answerRepository = answerRepository;
 	}
 
-//	/**
-//	 * @return the answerRepositoy
-//	 */
-//	public AnswerRepository getAnswerRepositoy() {
-//		return answerRepository;
-//	}
-//	
+	//add answer
+	
 	public Answer add(AnswerDto answerDto) {
 		Answer newAnswer = null;
 		newAnswer = new Answer(answerDto.getContent());
@@ -57,14 +52,27 @@ public class AnswerService {
 		return newAnswer;
 		
 	}
-//	
+	
+	//findAll	
+	
 	public List<Answer> findAllAnswers(){
 		return answerRepository.findAll();
 	}
 	
-	public Answer findById(Long id) {
-		return answerRepository.findById(id).orElseThrow(()-> new AnswerNotFoundException("Answer not found"));
+	//findById
+	
+	public AnswerDto findById(Long id) {
+		Answer isAnswer = answerRepository.findById(id).orElseThrow(()-> new AnswerNotFoundException("Answer not found"));
+		isAnswer = answerRepository.getById(id);
+		AnswerDto isAnswerDto = new AnswerDto();
+		isAnswerDto.setPollId(isAnswer.getPoll().getId());
+		isAnswerDto.setUserId(isAnswer.getUser().getId());
+		isAnswerDto.setVottingDetail(isAnswer.getVottingDetails());
+		isAnswerDto.setContent(isAnswer.getComment());
+		return isAnswerDto;
 	}
+	
+	//update
 	
 	public Answer update(AnswerDto answerDto) {
 		
@@ -83,6 +91,8 @@ public class AnswerService {
 
 	}
 	
+	//delete
+	
 	public void delete(Long id) {
 		if(answerRepository.findById(id).isPresent()) {
 		answerRepository.deleteById(id);
@@ -91,13 +101,15 @@ public class AnswerService {
 		}
 	}
 	
+	//findAnswersByPoll
 
 	 public List<Answer> findAnswersByPoll (Long pollId){
 		 Poll poll = pollRepository.findById(pollId).orElseThrow(() -> new PollNotFoundException("poll id not found"+pollId));
 		 List<Answer> answers = answerRepository.getAnswersByPoll(poll);
 		 return answers;		 
 	 }	
-//	
+
+	 //findAnswersByUser
 
 	public List<Answer> findAnswersByUser(Long userId) {
 		// TODO Auto-generated method stub
@@ -107,17 +119,4 @@ public class AnswerService {
 		
 	}
 	
-//	/*
-//	@PutMapping("/{answerId}/users/{pollId}")
-//	 Object votePoll(
-//			 @PathVariable Long pollId,
-//			 @PathVariable Long answerId
-//			 ) {
-//		 Poll poll = pollRepository.findById(pollId).get();
-//		 Answer answer = answerRepository2.findById(answerId).get();
-//		 answer.assignAnswersToPoll(poll);
-//		 return answerRepository2.save(answer);
-//		 
-//	 }	*/
-//	
 }

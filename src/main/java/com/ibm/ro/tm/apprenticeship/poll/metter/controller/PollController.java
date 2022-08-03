@@ -98,46 +98,6 @@ public class PollController {
 		List<Poll> polls = pollService.findByTopic(topic);
 		return new ResponseEntity<>(polls, HttpStatus.OK);
 	}
-
-//	
-//	/**
-//	 * @return the pollService
-//	 */
-//	public PollService getPollService() {
-//		return pollService;
-//	}
-//	
-//	@GetMapping("/polls")
-//	public ResponseEntity<List<Poll>> getAllPolls(){
-//		List<Poll> polls = pollService.findAllPolls();
-//		return new ResponseEntity<>(polls, HttpStatus.OK);
-//	}
-//	
-//	@GetMapping("/find/{id}")
-//	public ResponseEntity<Poll> getPollById(@PathVariable("id") Long id){
-//		Poll poll = pollService.findById(id);
-//		return new ResponseEntity<>(poll, HttpStatus.OK);
-//	}
-//	
-//	@PostMapping("/add")
-//	public ResponseEntity<Poll> addPoll(@RequestBody Poll poll){
-//		Poll newPoll = pollService.addPoll(poll);
-//		return new ResponseEntity<>(newPoll, HttpStatus.CREATED);
-//	}
-//	
-//	@PutMapping("/update")
-//	public ResponseEntity<Poll> updatePoll(@RequestBody Poll poll){
-//		Poll updatePoll = pollService.updatePoll(poll);
-//		return new ResponseEntity<>(updatePoll, HttpStatus.OK);
-//	}
-//	
-//	@DeleteMapping("/delete/{id}")
-//	public ResponseEntity<Poll> deletePoll(@PathVariable Long id){
-//		pollService.deletePoll(id);
-//		return new ResponseEntity<>(HttpStatus.OK);
-//	}
-//	
-	
 	
 }
 
