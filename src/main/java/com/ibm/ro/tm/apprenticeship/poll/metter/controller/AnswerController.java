@@ -121,5 +121,11 @@ public class AnswerController {
 		AnswerDto answer = answerService.findById(id);
 		return new ResponseEntity<>(answer, HttpStatus.OK);
 	}
+
+	@GetMapping("/find/poll/{pollId}/user/{userId}")
+	public ResponseEntity<AnswerDto> findAnswerByUserIdAndPollId(@PathVariable("pollId")Long pollId, @PathVariable("userId") Long userId){
+		AnswerDto answerDto = answerService.findAnswerByUserIdAndPollId(pollId, userId);
+		return new ResponseEntity<>(answerDto, HttpStatus.OK);
+	}
 		
 }

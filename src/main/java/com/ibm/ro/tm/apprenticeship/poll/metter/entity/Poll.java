@@ -5,6 +5,7 @@ import javax.persistence.*;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 public class Poll implements Serializable {
@@ -31,7 +32,7 @@ public class Poll implements Serializable {
     @ApiModelProperty(value = "description", name = "notificationExpiryDate",
             dataType = "String", example = "2022-01-16T08:42:37.484Z")
     private Timestamp closingDate;
-    
+
    
     protected Poll(){}
 
@@ -60,8 +61,10 @@ public class Poll implements Serializable {
          
           
     //setters
-    
-       
+
+    public void setId(Long newId) {
+        this.id = newId;
+    }
     public void setTopic(String newTopic) {
     	this.topic = newTopic;
     }
