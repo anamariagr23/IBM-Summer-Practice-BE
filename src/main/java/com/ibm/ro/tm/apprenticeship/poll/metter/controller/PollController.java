@@ -93,11 +93,16 @@ public class PollController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-		@GetMapping("/find/{topic}")
-	public ResponseEntity<List<Poll>> getPollByTopic(@PathVariable("topic") String topic){
-		List<Poll> polls = pollService.findByTopic(topic);
-		return new ResponseEntity<>(polls, HttpStatus.OK);
-	}
-	
+//		@GetMapping("/find/{topic}")
+//	public ResponseEntity<List<Poll>> getPollByTopic(@PathVariable("topic") String topic){
+//		List<Poll> polls = pollService.findByTopic(topic);
+//		return new ResponseEntity<>(polls, HttpStatus.OK);
+//	}
+//	
+		@GetMapping("/find/{id}")
+		public ResponseEntity<Poll> getById(@PathVariable("id") Long id){
+			Poll poll = pollService.findById(id);
+			return new ResponseEntity<>(poll, HttpStatus.OK);
+		}
 }
 

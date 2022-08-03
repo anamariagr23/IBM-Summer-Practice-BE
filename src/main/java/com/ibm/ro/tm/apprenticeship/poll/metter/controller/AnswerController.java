@@ -81,8 +81,8 @@ public class AnswerController {
 	}
 	
 	@GetMapping("/")
-	public ResponseEntity<List<Answer>> getAllAnswers(){
-		List<Answer> answers = answerService.findAllAnswers();
+	public ResponseEntity<List<AnswerDto>> getAllAnswers(){
+		List<AnswerDto> answers = answerService.findAllAnswers();
 		return new ResponseEntity<>(answers, HttpStatus.OK);
 	}
 	

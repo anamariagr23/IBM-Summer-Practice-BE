@@ -3,6 +3,7 @@
  */
 package com.ibm.ro.tm.apprenticeship.poll.metter.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +56,20 @@ public class AnswerService {
 	
 	//findAll	
 	
-	public List<Answer> findAllAnswers(){
-		return answerRepository.findAll();
+	public List<AnswerDto> findAllAnswers(){
+		List<Answer> repositoryAnswers = answerRepository.findAll();
+		List<AnswerDto> answerDtoList = new ArrayList<AnswerDto>();
+		for (Answer repositoryAnswer: repositoryAnswers) {
+			AnswerDto answerDtoToAdd = new AnswerDto();
+			answerDtoToAdd.setPollId(repositoryAnswer.getPoll().getId());
+			answerDtoToAdd.setUserId(repositoryAnswer.getUser().getId());
+			answerDtoToAdd.setContent(repositoryAnswer.getComment());
+			answerDtoToAdd.setVottingDetail(repositoryAnswer.getVottingDetails());
+			answerDtoList.add(answerDtoToAdd);
+
+		}
+		return answerDtoList;
+
 	}
 	
 	//findById
