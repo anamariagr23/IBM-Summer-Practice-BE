@@ -15,6 +15,7 @@ public class Poll implements Serializable {
 	 */
 	private static final long serialVersionUID = 1195877116290672016L;
 
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false, updatable = false)
